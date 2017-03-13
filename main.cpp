@@ -1,23 +1,50 @@
 #include <SFML/Graphics.hpp>
+#include "DebugSystem.h"
+#include "Application.h"
+
+#define SCREEN_WIDTH 1280
+#define SCREEN_HEIGHT 800
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
+	//Register a new window
+	sf::RenderWindow Window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "AI Coursework");
 
-	while (window.isOpen())
+	//Declare the clear colour
+	sf::Color ClearColour(50, 50, 50, 255);
+
+	//Declare the clock to manage delta time
+	sf::Clock DeltaClock;
+
+	//Int the Application
+	Application Game;
+	Game.Init(&Window, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+	while (Window.isOpen())
 	{
+		//Set up the clock and delta time 
+		sf::Time FrameTime = DeltaClock.restart();
+		float DeltaTime = FrameTime.asSeconds();
+
+		//Poll for closing the window
 		sf::Event event;
-		while (window.pollEvent(event))
+		while (Window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
-				window.close();
+				Window.close();
 		}
 
-		window.clear();
-		window.draw(shape);
-		window.display();
+		//Clear window
+		Window.clear(ClearColour);
+		
+		//Update the application and render
+		Game.Update(DeltaTime);
+		Game.Render();
+
+		//Update the window display
+		Window.display();
+
+
 	}
 
 	return 0;
