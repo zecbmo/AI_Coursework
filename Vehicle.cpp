@@ -1,5 +1,5 @@
 #include "Vehicle.h"
-
+#include "SteeringBehaviours.h"
 
 
 Vehicle::Vehicle()
@@ -18,7 +18,7 @@ void Vehicle::Update(float dt)
 
 	//keep a record of its old position so we can update its cell later
 	//in this method
-	Vector2 OldPos = Pos();
+	Vector2 OldPos = m_Position;
 
 
 	Vector2 SteeringForce;
@@ -34,7 +34,7 @@ void Vehicle::Update(float dt)
 	m_Velocity += acceleration * dt;
 
 	//make sure vehicle does not exceed maximum velocity
-	m_Velocity.Truncate(m_MaxSpeed);
+	m_Velocity.truncate(m_MaxSpeed);
 
 	//update the position
 	m_Position += m_Velocity * dt;
@@ -46,15 +46,16 @@ void Vehicle::Update(float dt)
 
 		m_Heading = vel.normalize();
 
-		m_Side = m_Heading.Perp();
+		m_SideVector = m_Heading.perp();
 	}
 
 	//EnforceNonPenetrationConstraint(this, World()->Agents());
 
 	//treat the screen as a toroid
-	WrapAround(m_Pos, m_World->cxClient(), m_pWorld->cyClient());
+	WrapAround(m_Position, m_World->cxClient(), m_World->cyClient());
 
 	//update the vehicle's current cell if space partitioning is turned on
+
 	if (Steering()->isSpacePartitioningOn())
 	{
 		World()->CellSpace()->UpdateEntity(this, OldPos);

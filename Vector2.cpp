@@ -107,6 +107,16 @@ std::string Vector2::toString()
 	return returnString;
 }
 
+inline void Vector2::truncate(float max)
+{
+	if (this->length() > max)
+	{
+		this->normalize();
+
+		*this *= max;
+	}
+}
+
 
 
 Vector2 operator -(const Vector2& left, const Vector2& right)
@@ -116,4 +126,48 @@ Vector2 operator -(const Vector2& left, const Vector2& right)
 	sf::Vector2f fin = l - r;
 	Vector2 v(fin.x, fin.y);
 	return v;
+}
+
+Vector2 operator*(const Vector2 &lhs, float rhs)
+{
+	Vector2 result(lhs);
+	result *= rhs;
+	return result;
+}
+
+Vector2 operator*(double lhs, const Vector2 &rhs)
+{
+	Vector2 result(rhs);
+	result *= lhs;
+	return result;
+}
+
+//overload the - operator
+Vector2 operator-(const Vector2 &lhs, const Vector2 &rhs)
+{
+	Vector2 result(lhs);
+	result.x -= rhs.x;
+	result.y -= rhs.y;
+
+	return result;
+}
+
+//overload the + operator
+Vector2 operator+(const Vector2 &lhs, const Vector2 &rhs)
+{
+	Vector2 result(lhs);
+	result.x += rhs.x;
+	result.y += rhs.y;
+
+	return result;
+}
+
+//overload the / operator
+Vector2 operator/(const Vector2 &lhs, float val)
+{
+	Vector2 result(lhs);
+	result.x /= val;
+	result.y /= val;
+
+	return result;
 }

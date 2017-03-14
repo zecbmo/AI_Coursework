@@ -26,9 +26,66 @@ public:
 	Vector2 perp()const;
 
 	std::string toString();
+	
+    void truncate(float max);
+
+
+
+
+	const Vector2& operator+=(const Vector2 &rhs)
+	{
+		x += rhs.x;
+		y += rhs.y;
+
+		return *this;
+	}
+
+	const Vector2& operator-=(const Vector2 &rhs)
+	{
+		x -= rhs.x;
+		y -= rhs.y;
+
+		return *this;
+	}
+
+	const Vector2& operator*=(const float& rhs)
+	{
+		x *= rhs;
+		y *= rhs;
+
+		return *this;
+	}
+
+	const Vector2& operator/=(const float& rhs)
+	{
+		x /= rhs;
+		y /= rhs;
+
+		return *this;
+	}
+
+	bool operator==(const Vector2& rhs)const
+	{
+		if ((x == rhs.x) && (y == rhs.y))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	bool operator!=(const Vector2& rhs)const
+	{
+		return (x != rhs.x) || (y != rhs.y);
+	}
 
 };
 
 
 
-Vector2 operator -(const Vector2& left, const Vector2& right);
+Vector2 operator-(const Vector2& lhs, const Vector2& rhs);
+Vector2 operator*(const Vector2 &lhs, float rhs);
+Vector2 operator*(float lhs, const Vector2 &rhs);
+Vector2 operator+(const Vector2 &lhs, const Vector2 &rhs);
+Vector2 operator/(const Vector2 &lhs, float val);
+

@@ -3,7 +3,7 @@
 #include "Smoother.h"
 
 class GameWorld;
-class SteeringBehavior;
+class SteeringBehaviour;
 
 class Vehicle :	public MovingGameObject
 {
@@ -18,7 +18,7 @@ public:
 
 
 	//-------------------------------------------accessor methods
-	SteeringBehavior*const  Steering()const { return m_Steering; }
+	SteeringBehaviour*const  Steering()const { return m_Steering; }
 	GameWorld*const         World()const { return m_World; }
 
 
@@ -39,7 +39,7 @@ private:
 	GameWorld* m_World;
 
 	//the steering behavior class
-	SteeringBehavior* m_Steering;
+	SteeringBehaviour* m_Steering;
 
 
 	//some steering behaviors give jerky looking movement. The
